@@ -162,25 +162,25 @@
  ],
  "groupsubs": [{
    "createdAt": "-112h",
-   "private": "My super cool group topic",
+   "private": "group topic share by testuser1 and testuser2",
    "topic": "*ABC",
    "user": "testuser1"
   },
   {
    "createdAt": "-111.9h",
-   "private": "Wow",
+   "private": "group topic share by testuser1 and testuser2",
    "topic": "*ABC",
    "user": "testuser2"
   },
   {
    "createdAt": "-111.8h",
-   "private": "Custom group description by testuser2",
+   "private": "group topic share by testuser2 and testuser3",
    "topic": "*ABCDEF",
    "user": "testuser2"
   },
   {
    "createdAt": "-111.7h",
-   "private": "Kirgudu",
+   "private": "group topic share by testuser2 and testuser3",
    "topic": "*ABCDEF",
    "user": "testuser3"
   },
@@ -201,13 +201,13 @@
   },
   {
    "createdAt": "-111.3h",
-   "private": "I'm not the owner",
+   "private": "group topic share by testuser2 and testuser6",
    "topic": "*BF",
    "user": "testuser2"
   },
   {
    "createdAt": "-111.2h",
-   "private": "I'm not the owner either",
+   "private": "group topic share by testuser2 and testuser6",
    "topic": "*BF",
    "user": "testuser6"
   }
