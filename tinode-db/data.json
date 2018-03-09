@@ -158,7 +158,7 @@
   {
    "createdAt": "-113.5h",
    "users": [{"name": "bob", "private": "Eve nee Ng"}, {"name": "eve"}]
-  },
+  }
  ],
  "groupsubs": [{
    "createdAt": "-112h",
@@ -211,5 +211,7 @@
    "topic": "*BF",
    "user": "frank"
   }
+ ],
+ "messages": [
  ]
 }
