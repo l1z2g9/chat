@@ -18,14 +18,14 @@ ENV TARGET_DB=$TARGET_DB
 ENV UID_ENCRYPTION_KEY=la6YsO+bNX/+XIkOqc5Svw==
 
 # Build the utility from the master branch on Github.
-RUN go get -tags $TARGET_DB github.com/tinode/chat/tinode-db \
-	&& go install -tags $TARGET_DB github.com/tinode/chat/tinode-db
+RUN go get -tags $TARGET_DB github.com/l1z2g9/chat/tinode-db \
+	&& go install -tags $TARGET_DB github.com/l1z2g9/chat/tinode-db
 
 COPY config.template /
 COPY entrypoint.sh /
 
 RUN chmod +x /entrypoint.sh
-RUN chmod +x /go/src/github.com/tinode/chat/tinode-db/credentials.sh
+RUN chmod +x /go/src/github.com/l1z2g9/chat/tinode-db/credentials.sh
 
 RUN mkdir /botdata
 
