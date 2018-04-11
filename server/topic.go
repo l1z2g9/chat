@@ -1941,6 +1941,14 @@ func (t *Topic) replyDelSub(h *Hub, sess *Session, del *MsgClientDel) error {
 		return err
 	}
 
+	// ----------------
+	// Delete user's messages from the database
+	if err := store.Messages.DeleteMessageForUser(t.name, uid); err != nil {
+		sess.queueOut(ErrUnknown(del.Id, t.original(sess.uid), now))
+		return err
+	}
+	// ----------------
+
 	// Delete user's subscription from the database
 	if err := store.Subs.Delete(t.name, uid); err != nil {
 		sess.queueOut(ErrUnknown(del.Id, t.original(sess.uid), now))

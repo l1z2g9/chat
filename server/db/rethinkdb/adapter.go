@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
+	"log"
 	"github.com/tinode/chat/server/store"
 	t "github.com/tinode/chat/server/store/types"
 	rdb "gopkg.in/gorethink/gorethink.v4"
@@ -1139,6 +1139,7 @@ func (a *adapter) MessageGetAll(topic string, forUser t.Uid, opts *t.BrowseOpt) 
 	upper = []interface{}{topic, upper}
 
 	requester := forUser.String()
+	log.Println("requester =>>>> " + requester)
 	rows, err := rdb.DB(a.dbName).Table("messages").
 		Between(lower, upper, rdb.BetweenOpts{Index: "Topic_SeqId"}).
 		// Ordering by index must come before filtering
@@ -1283,6 +1284,41 @@ func (a *adapter) MessageDeleteList(topic string, toDel *t.DelMessage) (err erro
 
 	return err
 }
+
+// ---------------------
+// MessageDeleteListForUser deletes messages in the given topic and user
+func (a *adapter) MessageDeleteListForUser(topic string, forUser t.Uid) (err error) {
+	requester := forUser.String()
+	log.Println("requester " + requester + ", topic " + topic)
+
+	messages, _ := a.MessageGetAll(topic, forUser, nil)
+	log.Println("messages ", messages)
+
+	var ranges []t.Range
+
+	for _, message := range messages {
+		log.Println("delete message.From " + message.From)
+		if message.From == requester {
+			ranges = append(ranges, t.Range{Low: message.SeqId, Hi: 0})
+			log.Println("message.Id ", message.Id, "message.SeqId", message.SeqId)
+		}
+	}
+
+	log.Println("count for ranges", len(ranges))
+
+	toDel := &t.DelMessage{Topic: topic,
+		DelId:       1,
+		DeletedFor:  "",
+		SeqIdRanges: ranges}
+	toDel.InitTimes()
+
+	log.Println("time to delete ", toDel)
+	a.MessageDeleteList(topic, toDel)
+
+	return err
+}
+
+// ----------------
 
 func deviceHasher(deviceID string) string {
 	// Generate custom key as [64-bit hash of device id] to ensure predictable

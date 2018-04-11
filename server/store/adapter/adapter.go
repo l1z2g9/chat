@@ -77,6 +77,12 @@ type Adapter interface {
 	MessageGetAll(topic string, forUser t.Uid, opts *t.BrowseOpt) ([]t.Message, error)
 	// Mark messages as deleted. Soft- or Hard- is defined by forUser value: forUSer.IsZero == true is hard.
 	MessageDeleteList(topic string, toDel *t.DelMessage) error
+
+	// ----------------
+	// Mark messages as deleted. Soft-
+	MessageDeleteListForUser(topic string, forUser t.Uid) error
+	// ----------------
+
 	// Get a list of deleted message Ids
 	MessageGetDeleted(topic string, forUser t.Uid, opts *t.BrowseOpt) ([]t.DelMessage, error)
 
